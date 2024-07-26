@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read_Cart</title>
+</head>
+<body>
+    <h1 align="center"> Read Cart </h1>
+
+    <table align="center" border="1">
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th> Remove from cart</th>
+            <th>Order</th>
+            
+        </tr>
+        
+        {% for i in data %}
+            <tr>
+                <td>{{ i.product.name }}</td>
+                <td><img src="{{ i.product.image.url }}" height="200px" width="100%"></td>
+                <td>
+                    <select onchange="location=this.value;">
+                        <option value="/update_cart/{{ i.id }}/1" {% if i.quantity == 1 %} selected {% endif %} >1</option>
+                        <option value="/update_cart/{{ i.id }}/2" {% if i.quantity == 2 %} selected {% endif %} >2</option>
+                        <option value="/update_cart/{{ i.id }}/3" {% if i.quantity == 3 %} selected {% endif %} >3</option>
+                        <option value="/update_cart/{{ i.id }}/4" {% if i.quantity == 4 %} selected {% endif %} >4</option>
+                        <option value="/update_cart/{{ i.id }}/5" {% if i.quantity == 5 %} selected {% endif %} >5</option>
+                    </select>
+                </td>
+                <td>{{ i.total_price }}</td>
+                <td><a href="/delete_cart/{{ i.id }}">Remove from cart</a></td>
+                <td><a href="/create_orders/{{ i.id }}">Order</a></td>
+            </tr>
+        {% endfor %}   
+        <tr>
+            <th> </th>
+            <th></th>
+            <th>{{ total_quantity }}</th>
+            <th>{{ total_price }}</th>
+            <!-- <th><a href="">Order</a></th> -->
+        </tr> 
+    </table>
+</body>
+</html>
